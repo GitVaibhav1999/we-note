@@ -43,10 +43,10 @@ function Authentication() {
       <div>
         <LoginBox />
         <div style={{ textAlign: "center", paddingTop: "1em" }}>
-          Don't have an account yet?
+          Already a user?
         </div>
         <div style={{ textAlign: "center", paddingTop: "1em" }}>
-          <a href="">Create an Account</a>
+          <a href="">Login</a>
         </div>
       </div>
     </div>

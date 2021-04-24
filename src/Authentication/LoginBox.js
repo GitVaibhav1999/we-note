@@ -76,7 +76,7 @@ function LoginBox() {
     });
 
     if (validate.validate_email == true && validate.validate_password == true) {
-      await signUp(email, password)
+      await signUp(email, password) // create user with email and password from AuthContext
         .then((response) => console.log(response))
         .catch((error) => console.log(error));
     }

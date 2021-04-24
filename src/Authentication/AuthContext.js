@@ -15,6 +15,7 @@ export function AuthProvider({ children }) {
   };
 
   React.useEffect(() => {
+    // getting current user by setting observer on Auth project
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
     });
@@ -22,7 +23,7 @@ export function AuthProvider({ children }) {
 
   const value = {
     currentUser,
-    signUp,
+    signUp, // signUp function (async) passed as a contex
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
