@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core";
 import { TextField, Paper, Button } from "@material-ui/core";
+import { useAuth } from "./AuthContext";
 
 import sticky from "../assets/sticky-notes.png";
 
@@ -36,17 +37,34 @@ const useStyles = makeStyles({
 function LoginBox() {
   const classes = useStyles();
 
+  const { signUp } = useAuth();
+
+  const [password, setPassword] = useState();
+  const [email, setEmail] = useState();
+
+  const handleSubmit = async () => {
+    await signUp(email, password)
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+  };
+
   return (
     <Paper elevation="3" className={classes.loginbox}>
       <img className={classes.image} src={sticky} />
 
-      <TextField className={classes.input} label="Email" variant="outlined" />
       <TextField
+        onChange={(event) => setEmail(event.target.value)}
+        className={classes.input}
+        label="Email"
+        variant="outlined"
+      />
+      <TextField
+        onChange={(event) => setPassword(event.target.value)}
         className={classes.input}
         label="password"
         variant="outlined"
       />
-      <Button size="large" className={classes.button}>
+      <Button onClick={handleSubmit} size="large" className={classes.button}>
         Sign Up
       </Button>
     </Paper>
