@@ -1,5 +1,7 @@
 .root {
-  height: 100%;
-  width: 100%;
+  display: block;
+  height: 100vh;
+  width: 100vw;
   background-color: #f7fff7;
+  /* border-bottom: 4px solid #ff6b6b; */
 }

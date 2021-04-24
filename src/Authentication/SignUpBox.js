@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { withStyles, makeStyles } from "@material-ui/core";
+import { withStyles, makeStyles, ThemeProvider } from "@material-ui/core";
 import { TextField, Paper, Button } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
-
 import { useAuth } from "./AuthContext";
-import { validateEmail, validatePassword } from "./validateInput";
-import sticky from "../assets/sticky-notes.png";
 import { useHistory } from "react-router-dom";
+import { Alert } from "@material-ui/lab";
+
+import sticky from "../assets/sticky-notes.png";
+
+import { validateEmail, validatePassword } from "./validateInput";
 
 const useStyles = makeStyles({
   loginbox: {
@@ -64,53 +65,86 @@ const useStyles = makeStyles({
   },
 });
 
-function LoginBox() {
+function SignUpBox() {
   const classes = useStyles();
   const history = useHistory();
 
-  const { logIn, currentUser } = useAuth();
+  const { signUp, currentUser } = useAuth();
 
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [validate, setValidate] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = async () => {
-    await logIn(email, password) // login user with email and password from AuthContext
-      .then((response) => history.push("/"))
-      .catch((error) => {
-        if (error.code == "auth/invalid-email")
-          setErrorMessage("Invalid Email");
-        if (error.code == "auth/user-not-found")
-          setErrorMessage("User not found");
-        if (error.code == "auth/wrong-password")
-          setErrorMessage("Wrong Password");
-      });
+  const handleSignUp = async () => {
+    const validate_email = validateEmail(email);
+    const validate_password = validatePassword(password);
+
+    setValidate({
+      validate_email,
+      validate_password,
+    });
   };
-  useEffect(() => console.log(errorMessage), [errorMessage]);
+
+  useEffect(() => {
+    async function signUpAction() {
+      console.log(validate);
+      if (
+        validate.validate_email != undefined &&
+        validate.validate_email.valid == true &&
+        validate.validate_password.valid == true
+      ) {
+        await signUp(email, password) // create user with email and password from AuthContext
+          .then((response) => {
+            console.log(response);
+            history.push("/");
+          })
+          .catch((error) => {
+            if (error.code == "auth/email-already-in-use")
+              setErrorMessage("Email already in use");
+          });
+      }
+    }
+    signUpAction();
+  }, [validate]);
+
   return (
     <Paper elevation="3" className={classes.loginbox}>
       <img className={classes.image} src={sticky} />
 
       <TextField
+        error={
+          validate.validate_email != undefined && !validate.validate_email.valid
+        }
         onChange={(event) => setEmail(event.target.value)}
-        error={errorMessage.length > 0}
         className={classes.input}
         label="Email"
         variant="outlined"
-        // helperText={}
+        helperText={
+          validate.validate_email != undefined
+            ? validate.validate_email.response
+            : ""
+        }
       />
       <TextField
         type="password"
-        error={errorMessage.length > 0}
+        error={
+          validate.validate_password != undefined &&
+          !validate.validate_password.valid
+        }
         onChange={(event) => setPassword(event.target.value)}
         className={classes.input}
         label="password"
         variant="outlined"
-        // helperText={}
+        helperText={
+          validate.validate_password != undefined
+            ? validate.validate_password.response
+            : "Password should be more than 6 character"
+        }
       />
 
-      <Button onClick={handleSubmit} size="large" className={classes.button}>
-        Log In
+      <Button onClick={handleSignUp} size="large" className={classes.button}>
+        Sign Up
       </Button>
       <Alert
         className={
@@ -124,4 +158,4 @@ function LoginBox() {
   );
 }
 
-export default LoginBox;
+export default SignUpBox;

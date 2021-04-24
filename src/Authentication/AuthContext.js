@@ -11,7 +11,12 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = React.useState();
 
   const signUp = (email, password) => {
+    console.log("doing....");
     return auth.createUserWithEmailAndPassword(email, password);
+  };
+
+  const logIn = (email, password) => {
+    return auth.signInWithEmailAndPassword(email, password);
   };
 
   React.useEffect(() => {
@@ -24,6 +29,7 @@ export function AuthProvider({ children }) {
   const value = {
     currentUser,
     signUp, // signUp function (async) passed as a contex
+    logIn,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

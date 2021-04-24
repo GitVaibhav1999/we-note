@@ -1,7 +1,9 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core";
+import React, { useState } from "react";
+import { makeStyles, Button } from "@material-ui/core";
 
+import SignUpBox from "./SignUpBox";
 import LoginBox from "./LoginBox";
+import { useEffect } from "react";
 
 const useStyles = makeStyles({
   root: {
@@ -34,6 +36,8 @@ const useStyles = makeStyles({
 function Authentication() {
   const classes = useStyles();
 
+  const [newUser, setNewUser] = useState(true);
+
   return (
     <div className={classes.root}>
       <div className={classes.note}>
@@ -41,12 +45,15 @@ function Authentication() {
         and Collaborate
       </div>
       <div>
-        <LoginBox />
+        {newUser == true ? <SignUpBox /> : <LoginBox />}
         <div style={{ textAlign: "center", paddingTop: "1em" }}>
-          Already a user?
-        </div>
-        <div style={{ textAlign: "center", paddingTop: "1em" }}>
-          <a href="">Login</a>
+          {newUser == true ? "Already a user ?" : "New Here ?"}
+          <Button
+            style={{ border: "1px solid black", margin: "1rem" }}
+            onClick={() => setNewUser(!newUser)}
+          >
+            {newUser == true ? "LogIn" : "SignUp"}
+          </Button>
         </div>
       </div>
     </div>
