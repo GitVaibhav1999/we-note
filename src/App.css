@@ -3,5 +3,20 @@
   height: 100vh;
   width: 100vw;
   background-color: #f7fff7;
+  /* background-image: linear-gradient(
+    to right,
+    #f7fff7,
+    #f7fff7,
+    #f7fff7,
+    #f7fff7,
+    #f7fff7,
+    #edfbef,
+    #e3f6e8,
+    #d8f2e1,
+    #bde9d4,
+    #9fe0cc,
+    #7cd7c6,
+    #4ecdc4
+  ); */
   /* border-bottom: 4px solid #ff6b6b; */
 }

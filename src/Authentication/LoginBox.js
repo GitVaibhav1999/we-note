@@ -8,16 +8,22 @@ import { validateEmail, validatePassword } from "./validateInput";
 import sticky from "../assets/sticky-notes.png";
 import { useHistory } from "react-router-dom";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   loginbox: {
     display: "flex",
     height: "50vh",
-    width: "27vw",
-    border: "1px solid black",
+
+    border: "2px solid black",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    boxShadow: "2px 2px 4px grey",
+    boxShadow: "3px 3px 8px grey",
+    width: "47vw",
+    minWidth: "300px",
+    [theme.breakpoints.up("md")]: {
+      width: "27vw",
+      maxWidth: "400px",
+    },
   },
   input: {
     margin: "1em",
@@ -62,7 +68,7 @@ const useStyles = makeStyles({
   alert_hide: {
     visibility: "hidden",
   },
-});
+}));
 
 function LoginBox() {
   const classes = useStyles();
