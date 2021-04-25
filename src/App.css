@@ -3,6 +3,7 @@
   height: 100vh;
   width: 100vw;
   background-color: #f7fff7;
+  overflow: hidden;
   /* background-image: linear-gradient(
     to right,
     #f7fff7,
