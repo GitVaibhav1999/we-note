@@ -50,7 +50,13 @@ function Authentication() {
   const [newUser, setNewUser] = useState(true);
 
   return (
-    <div>
+    <div
+      style={{
+        height: "100%",
+        backgroundImage:
+          "linear-gradient(to right, #f7ffff, #ecf6f6, #e0ecec, #d5e3e3, #cadada)",
+      }}
+    >
       <div className={classes.root}>
         <div className={classes.note}>
           Welcome to <span className={classes.title}>WeNote</span> Create Notes
