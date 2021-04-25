@@ -2,8 +2,10 @@ import React from "react";
 import { IconButton, makeStyles, Paper } from "@material-ui/core";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
+import StarBorderIcon from "@material-ui/icons/StarBorder";
 
 import footerColors from "./footerColors";
+import StarBorder from "@material-ui/icons/StarBorder";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   toolButtons: {
     paddingRight: "1%",
   },
-  zoom: { "&:hover": { transform: "scale(1.5)" } },
+  zoom: { "&:hover": { transform: "scale(1.3)" } },
 }));
 
 function NoteCard() {
@@ -52,17 +54,14 @@ function NoteCard() {
       <div className={classes.footer}>
         <div className={classes.date}>12-05-2021</div>
         <div className={classes.toolButtons}>
-          <IconButton>
-            <CreateOutlinedIcon
-              className={classes.zoom}
-              style={{ fill: "#4BB543" }}
-            />
+          <IconButton className={classes.zoom}>
+            <StarBorder style={{ fill: "orange" }} />
           </IconButton>
-          <IconButton>
-            <DeleteOutlinedIcon
-              className={classes.zoom}
-              style={{ fill: "#D11A2A" }}
-            />
+          <IconButton className={classes.zoom}>
+            <CreateOutlinedIcon style={{ fill: "#4BB543" }} />
+          </IconButton>
+          <IconButton className={classes.zoom}>
+            <DeleteOutlinedIcon style={{ fill: "#D11A2A" }} />
           </IconButton>
         </div>
       </div>
