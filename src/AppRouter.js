@@ -7,6 +7,7 @@ import {
 import Authentication from "./Authentication/Authentication";
 import Dashboard from "./Dasboard/Dashboard";
 import { useAuth } from "./Authentication/AuthContext";
+import EditorScreen from "./Editor/EditorScreen";
 
 const AppRouter = () => {
   const { currentUser } = useAuth();
@@ -19,8 +20,11 @@ const AppRouter = () => {
         <route path="/signUp">
           <Authentication />
         </route>
-        <route path="/">
+        <route exact path="/">
           <Dashboard />
+        </route>
+        <route path="/editor">
+          <EditorScreen />
         </route>
       </Switch>
     </Router>

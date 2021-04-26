@@ -8,6 +8,9 @@ import IconButton from "@material-ui/core/IconButton";
 import { AccountCircle } from "@material-ui/icons";
 import { useAuth } from "../../Authentication/AuthContext";
 import { Redirect } from "react-router-dom";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import { Link } from "react-router-dom";
 
 import logo from "../../assets/sticky-notes.png";
 
@@ -39,6 +42,8 @@ export default function TopBar() {
   const classes = useStyles();
   const { logOut } = useAuth();
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
   const exit = async () => {
     await logOut().then((response) => <Redirect to="/signUp" />);
   };
@@ -52,7 +57,9 @@ export default function TopBar() {
             Vaibhav Kumar Gautam
           </Typography>
           <IconButton
-            onClick={exit}
+            onClick={(event) => {
+              setAnchorEl(event.currentTarget);
+            }}
             aria-label="account of current user"
             aria-controls="primary-search-account-menu"
             aria-haspopup="true"
@@ -61,6 +68,20 @@ export default function TopBar() {
           >
             <AccountCircle />
           </IconButton>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClick={(event) => {
+              setAnchorEl(null);
+            }}
+          >
+            <Link to="www.google.com">
+              <MenuItem>Source Code</MenuItem>
+            </Link>
+            <MenuItem onClick={exit}>Logout</MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
     </div>

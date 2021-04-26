@@ -9,7 +9,9 @@ import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { useState } from "react";
-import { InputBase } from "@material-ui/core";
+import { InputBase, Link } from "@material-ui/core";
+
+import AddButton from "../../assets/add-button.png";
 
 const useStyle = makeStyles((theme) => ({
   appBar: {
@@ -59,6 +61,7 @@ const useStyle = makeStyles((theme) => ({
     transition: "0.2s ease",
     "&:hover": {
       transform: "scale(1.2)",
+      // boxShadow: "0px 2px 0px px #F7FFF7",
 
       backgroundColor: "#FF6B6B",
     },
@@ -76,8 +79,9 @@ function BottomBar() {
         <IconButton edge="start" color="inherit" aria-label="open drawer">
           <MenuIcon />
         </IconButton>
+
         <Fab color="secondary" aria-label="add" className={classes.fabButton}>
-          <AddIcon />
+          <span style={{ fontSize: "100px" }}>+</span>
         </Fab>
         {/* <TextField /> */}
         <div className={classes.grow} />
@@ -94,9 +98,6 @@ function BottomBar() {
             inputProps={{ "aria-label": "search" }}
           />
         </div>
-        <IconButton edge="end" color="inherit">
-          <MoreIcon />
-        </IconButton>
       </Toolbar>
     </AppBar>
   );
