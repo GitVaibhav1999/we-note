@@ -82,7 +82,10 @@ function LoginBox() {
 
   const handleSubmit = async () => {
     await logIn(email, password) // login user with email and password from AuthContext
-      .then((response) => history.push("/"))
+      .then(() => {
+        console.log(" successfully logged in");
+        history.push("/");
+      })
       .catch((error) => {
         if (error.code == "auth/invalid-email")
           setErrorMessage("Invalid Email");

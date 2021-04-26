@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { withStyles, makeStyles, ThemeProvider } from "@material-ui/core";
 import { TextField, Paper, Button } from "@material-ui/core";
 import { useAuth } from "./AuthContext";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import { Alert } from "@material-ui/lab";
 
 import sticky from "../assets/sticky-notes.png";
@@ -102,8 +102,8 @@ function SignUpBox() {
         validate.validate_password.valid == true
       ) {
         await signUp(email, password) // create user with email and password from AuthContext
-          .then((response) => {
-            console.log(response);
+          .then(() => {
+            console.log("success");
             history.push("/");
           })
           .catch((error) => {

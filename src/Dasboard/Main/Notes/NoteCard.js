@@ -47,7 +47,6 @@ function NoteCard() {
   const classes = useStyles();
   var random_color =
     footerColors[Math.floor(Math.random() * footerColors.length)];
-  console.log(random_color);
   return (
     <Paper className={classes.paper}>
       <div className={classes.title}>Note title temp</div>

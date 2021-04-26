@@ -19,6 +19,10 @@ export function AuthProvider({ children }) {
     return auth.signInWithEmailAndPassword(email, password);
   };
 
+  const logOut = () => {
+    return auth.signOut();
+  };
+
   React.useEffect(() => {
     // getting current user by setting observer on Auth project
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -30,6 +34,7 @@ export function AuthProvider({ children }) {
     currentUser,
     signUp, // signUp function (async) passed as a contex
     logIn,
+    logOut,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -6,6 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import { AccountCircle } from "@material-ui/icons";
+import { useAuth } from "../../Authentication/AuthContext";
+import { Redirect } from "react-router-dom";
 
 import logo from "../../assets/sticky-notes.png";
 
@@ -35,6 +37,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TopBar() {
   const classes = useStyles();
+  const { logOut } = useAuth();
+
+  const exit = async () => {
+    await logOut().then((response) => <Redirect to="/signUp" />);
+  };
 
   return (
     <div className={classes.root}>
@@ -45,6 +52,7 @@ export default function TopBar() {
             Vaibhav Kumar Gautam
           </Typography>
           <IconButton
+            onClick={exit}
             aria-label="account of current user"
             aria-controls="primary-search-account-menu"
             aria-haspopup="true"
