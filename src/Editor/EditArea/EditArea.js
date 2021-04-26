@@ -16,6 +16,7 @@ const useStyles = makeStyles(() => ({
     width: "90%",
     overflow: "auto",
     boxShadow: "2px 2px 5px 1px grey",
+    transition: "0.4s ease",
   },
 }));
 

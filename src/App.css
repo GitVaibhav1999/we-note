@@ -4,20 +4,11 @@
   width: 100vw;
   background-color: #f7fff7;
   overflow: hidden;
-  /* background-image: linear-gradient(
-    to right,
-    #f7fff7,
-    #f7fff7,
-    #f7fff7,
-    #f7fff7,
-    #f7fff7,
-    #edfbef,
-    #e3f6e8,
-    #d8f2e1,
-    #bde9d4,
-    #9fe0cc,
-    #7cd7c6,
-    #4ecdc4
-  ); */
-  /* border-bottom: 4px solid #ff6b6b; */
+}
+.ce-block__content {
+  margin: "0";
+}
+.ce-block {
+  border: 1px solid black;
+  margin-bottom: 1%;
 }
