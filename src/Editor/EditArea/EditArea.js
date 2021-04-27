@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
   },
   paper: {
     fontSize: "1rem",
-    backgroundColor: "#feff9c",
+    // backgroundColor: "#feff9c",
     border: "1px solid grey",
     padding: "2%",
     height: "90%",
@@ -20,10 +20,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function EditArea() {
+function EditArea(props) {
   const classes = useStyles();
   return (
-    <Paper elevation={5} className={classes.paper}>
+    <Paper
+      style={{ backgroundColor: props.noteColor }}
+      elevation={5}
+      className={classes.paper}
+    >
       <EditorJs tools={EDITOR_JS_TOOLS} />
     </Paper>
   );

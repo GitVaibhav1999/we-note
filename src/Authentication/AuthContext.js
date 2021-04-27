@@ -1,5 +1,6 @@
 import React from "react";
 import { auth } from "../firebase/firebase";
+import firebase from "firebase/app";
 
 const AuthContext = React.createContext();
 
@@ -19,6 +20,17 @@ export function AuthProvider({ children }) {
     return auth.signInWithEmailAndPassword(email, password);
   };
 
+  const isNewUser = () => {
+    if (currentUser == null) return;
+
+    const first_login = currentUser.metadata.creationTime;
+    const last_login = currentUser.metadata.lastSignInTime;
+    console.log(first_login, last_login);
+
+    if (Date.parse(first_login) === Date.parse(last_login)) return true;
+    return false;
+  };
+
   const logOut = () => {
     return auth.signOut();
   };
@@ -35,6 +47,7 @@ export function AuthProvider({ children }) {
     signUp, // signUp function (async) passed as a contex
     logIn,
     logOut,
+    isNewUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

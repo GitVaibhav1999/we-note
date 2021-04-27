@@ -44,7 +44,7 @@ const useStyle = makeStyles((theme) => ({
     justifyContent: "center",
   },
   grow: {
-    flexGrow: 1,
+    flexGrow: 0,
   },
 
   fabButton: {
@@ -56,7 +56,7 @@ const useStyle = makeStyles((theme) => ({
     zIndex: 1,
     top: -40,
     left: 0,
-    right: 0,
+    right: -1300,
     margin: "0 auto",
     transition: "0.2s ease",
     border: "1px solid white",
@@ -89,11 +89,10 @@ function BottomBar() {
         </Link>
         {/* <TextField /> */}
         <div className={classes.grow} />
-        <div className={classes.searchIcon}>
-          <SearchIcon />
-        </div>
+
         <div className={classes.search}>
           <InputBase
+            style={{ paddingLeft: "2%" }}
             placeholder="Search Notes"
             classes={{
               root: classes.inputRoot,

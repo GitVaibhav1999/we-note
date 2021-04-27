@@ -83,6 +83,10 @@ function SignUpBox() {
   const [validate, setValidate] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
 
+  useEffect(() => {
+    if (currentUser != null) history.push("/");
+  }, [currentUser]);
+
   const handleSignUp = async () => {
     const validate_email = validateEmail(email);
     const validate_password = validatePassword(password);
@@ -103,7 +107,7 @@ function SignUpBox() {
       ) {
         await signUp(email, password) // create user with email and password from AuthContext
           .then(() => {
-            console.log("success");
+            console.log("successfully signed up");
             history.push("/");
           })
           .catch((error) => {

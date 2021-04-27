@@ -77,9 +77,9 @@ export default function TopBar() {
               setAnchorEl(null);
             }}
           >
-            <Link to="www.google.com">
+            <a href="www.google.com">
               <MenuItem>Source Code</MenuItem>
-            </Link>
+            </a>
             <MenuItem onClick={exit}>Logout</MenuItem>
           </Menu>
         </Toolbar>
