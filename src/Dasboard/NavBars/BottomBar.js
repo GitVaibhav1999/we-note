@@ -20,6 +20,7 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: "#1A535C",
   },
   search: {
+    visibility: "hidden",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.35),
     "&:hover": {
@@ -31,7 +32,9 @@ const useStyle = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     marginLeft: 0,
     width: "100%",
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("md")]: {
+      visibility: "visible",
+
       marginLeft: theme.spacing(3),
       width: "auto",
     },
@@ -55,8 +58,8 @@ const useStyle = makeStyles((theme) => ({
     position: "absolute",
     zIndex: 1,
     top: -40,
-    left: 0,
-    right: -1300,
+    left: "0",
+    right: "0",
     margin: "0 auto",
     transition: "0.2s ease",
     border: "1px solid white",
@@ -64,8 +67,12 @@ const useStyle = makeStyles((theme) => ({
       boxShadow: "0px 0px 3px 1px #FF6B6B",
       backgroundColor: "#FF6B6B",
       transform: "scale(1.1)",
-
-      backgroundColor: "#FF6B6B",
+    },
+    backgroundColor: "#FF6B6B",
+    [theme.breakpoints.up("md")]: {
+      right: "-85%",
+      left: 0,
+      top: "-40",
     },
   },
 }));

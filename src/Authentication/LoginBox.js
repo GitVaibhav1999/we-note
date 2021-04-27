@@ -80,6 +80,10 @@ function LoginBox() {
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  useEffect(() => {
+    if (currentUser != null) history.push("/");
+  }, [currentUser]);
+
   const handleSubmit = async () => {
     await logIn(email, password) // login user with email and password from AuthContext
       .then(() => {

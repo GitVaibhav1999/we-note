@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => ({
     height: "80vh",
   },
   gridItem: {
-    margin: "4rem",
+    margin: "3%",
+    // maxWidth: "40vw",
   },
 }));
 
@@ -30,7 +31,7 @@ function Main() {
       >
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map(() => {
           return (
-            <Grid className={classes.gridItem} item xs={10} sm={4} md={3}>
+            <Grid className={classes.gridItem} item sm={10} md={3}>
               <NoteCard />
             </Grid>
           );

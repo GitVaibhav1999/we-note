@@ -39,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
   toolButtons: {
     paddingRight: "1%",
+    display: "flex",
   },
   zoom: { "&:hover": { transform: "scale(1.3)" } },
 }));
