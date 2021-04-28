@@ -3,6 +3,7 @@ import { IconButton, makeStyles, Paper } from "@material-ui/core";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
+import PlayForWorkIcon from "@material-ui/icons/PlayForWork";
 
 import footerColors from "./footerColors";
 import StarBorder from "@material-ui/icons/StarBorder";
@@ -58,7 +59,7 @@ function NoteCard() {
             <StarBorder style={{ fill: "orange" }} />
           </IconButton>
           <IconButton className={classes.zoom}>
-            <CreateOutlinedIcon style={{ fill: "#4BB543" }} />
+            <PlayForWorkIcon style={{ fill: "#4BB543" }} />
           </IconButton>
           <IconButton className={classes.zoom}>
             <DeleteOutlinedIcon style={{ fill: "#D11A2A" }} />
