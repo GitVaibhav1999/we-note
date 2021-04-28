@@ -2,6 +2,7 @@ import React from "react";
 import EditorJs from "react-editor-js";
 import { EDITOR_JS_TOOLS } from "./editorTools";
 import { Paper, makeStyles } from "@material-ui/core";
+import { updateNoteData } from "../../DBCalls/firestoreDB";
 
 const useStyles = makeStyles(() => ({
   "ce-block": {
@@ -22,13 +23,20 @@ const useStyles = makeStyles(() => ({
 
 function EditArea(props) {
   const classes = useStyles();
+
+  const CID = props.CID;
+
+  const updateNote = (api, newData) => {
+    updateNoteData(CID, "TEXT", newData);
+  };
+
   return (
     <Paper
       style={{ backgroundColor: props.noteColor }}
       elevation={5}
       className={classes.paper}
     >
-      <EditorJs tools={EDITOR_JS_TOOLS} />
+      <EditorJs onChange={updateNote} tools={EDITOR_JS_TOOLS} />
     </Paper>
   );
 }

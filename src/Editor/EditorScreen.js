@@ -92,7 +92,7 @@ function EditorScreen(props) {
           </Link>
         </div>
         <div className={classes.editArea}>
-          <EditArea noteColor={color} />
+          <EditArea CID={CID} noteColor={color} />
         </div>
         <div></div>
       </div>
