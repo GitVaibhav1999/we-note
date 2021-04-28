@@ -4,8 +4,11 @@ import NoteCard from "./Notes/NoteCard";
 import { makeStyles } from "@material-ui/core";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { getUserNotes } from "../../DBCalls/firestoreDB";
+import Loader from "react-loader-spinner";
+
 import { useAuth } from "../../Authentication/AuthContext";
 import { useData } from "../../Context";
+import emptyIcon from "../../assets/search.png";
 
 const useStyles = makeStyles((theme) => ({
   grid: {
@@ -13,12 +16,35 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     marginTop: "1rem",
     height: "80vh",
+    transition: "2s ease-out",
   },
   gridItem: {
     margin: "1%",
     height: "30%",
+    transition: "2s ease",
+
     // border: "1px solid red",
     // maxWidth: "40vw",
+  },
+  loader: {
+    alignSelf: "center",
+    justifyContent: "center",
+    width: "100vw",
+    display: "flex",
+  },
+  empty: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100vw",
+    height: "60vh",
+    display: "flex",
+    fontSize: "3rem",
+    flexDirection: "column",
+  },
+  imgDiv: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 }));
 
@@ -44,6 +70,39 @@ function Main() {
     });
   }, []);
 
+  if (userNotes == undefined) {
+    return (
+      <div className={classes.loader}>
+        <Loader
+          type="ThreeDots"
+          color="#FF6B6B"
+          height={900}
+          width={200}
+          // timeout={3000} //3 secs
+        />
+      </div>
+    );
+  }
+
+  if (userNotes.length == 0) {
+    return (
+      <div className={classes.empty}>
+        <div>
+          <div className={classes.imgDiv}>
+            <img
+              style={{
+                width: "30%",
+              }}
+              src={emptyIcon}
+            />
+          </div>
+        </div>
+        <div>Looks empty around here !! </div>
+        <div style={{ color: "#FF6B6B" }}> add notes </div>
+        <div> and make this place lively</div>
+      </div>
+    );
+  }
   return (
     <PerfectScrollbar>
       <Grid

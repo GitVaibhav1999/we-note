@@ -9,6 +9,7 @@ import yellow_1 from "../assets/yellow_1.png";
 import yellow_2 from "../assets/yellow_2.png";
 import pink_1 from "../assets/pink_1.png";
 import pink_2 from "../assets/pink_2.png";
+import Loader from "react-loader-spinner";
 
 import { Link } from "react-router-dom";
 
@@ -84,7 +85,24 @@ function EditorScreen(props) {
   const [color, setColor] = React.useState(note_colors.yellow1);
 
   if (selectedNote == undefined) {
-    return <div>Loading</div>;
+    return (
+      <div
+        style={{
+          alignSelf: "center",
+          justifyContent: "center",
+          width: "100vw",
+          display: "flex",
+        }}
+      >
+        <Loader
+          type="ThreeDots"
+          color="#FF6B6B"
+          height={900}
+          width={200}
+          // timeout={3000} //3 secs
+        />
+      </div>
+    );
   }
 
   return (

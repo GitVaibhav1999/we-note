@@ -2,7 +2,7 @@ import React from "react";
 import { IconButton, makeStyles, Paper } from "@material-ui/core";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
+import StarIcon from "@material-ui/icons/Star";
 import PlayForWorkIcon from "@material-ui/icons/PlayForWork";
 import { useAuth } from "../../../Authentication/AuthContext";
 import { useData } from "../../../Context";
@@ -114,7 +114,7 @@ function NoteCard(props) {
         </div>
         <div className={classes.toolButtons}>
           <IconButton className={classes.zoom}>
-            <StarBorder style={{ fill: "orange", fontSize: "1.6em" }} />
+            <StarIcon style={{ fill: "#d3d3d3", fontSize: "1.6em" }} />
           </IconButton>
           <IconButton className={classes.zoom}>
             <PlayForWorkIcon style={{ fill: "#4BB543", fontSize: "1.3em" }} />

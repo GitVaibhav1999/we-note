@@ -39,7 +39,7 @@ export function DataProvider({ children }) {
     addUserDocument();
   }, [currentUser]);
 
-  const [userNotes, setUserNotes] = useState([]);
+  const [userNotes, setUserNotes] = useState();
   const [currentNote, setCurrentNote] = useState({});
 
   const value = {

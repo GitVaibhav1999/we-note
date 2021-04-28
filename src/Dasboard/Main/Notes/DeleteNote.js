@@ -20,12 +20,12 @@ function DeleteNote(props) {
 
   const CID = props.CID;
   function handleDelClick(e) {
+    e.stopPropagation();
     console.log("hi");
-    // e.stopPropagation();
   }
 
   return (
-    <IconButton onclick={() => console.log("cloedk")} className={classes.zoom}>
+    <IconButton onclick={handleDelClick} className={classes.zoom}>
       <DeleteOutlinedIcon style={{ fill: "#D11A2A", fontSize: "1.3em" }} />
     </IconButton>
   );
