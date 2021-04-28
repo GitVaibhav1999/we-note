@@ -24,6 +24,8 @@ const useStyles = makeStyles(() => ({
 function EditArea(props) {
   const classes = useStyles();
 
+  const Text = props.Text;
+  console.log(props);
   const CID = props.CID;
 
   const updateNote = (api, newData) => {
@@ -36,7 +38,11 @@ function EditArea(props) {
       elevation={5}
       className={classes.paper}
     >
-      <EditorJs onChange={updateNote} tools={EDITOR_JS_TOOLS} />
+      <EditorJs
+        data={props.Text}
+        onChange={updateNote}
+        tools={EDITOR_JS_TOOLS}
+      />
     </Paper>
   );
 }

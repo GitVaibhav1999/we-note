@@ -15,7 +15,9 @@ const useStyles = makeStyles((theme) => ({
     height: "80vh",
   },
   gridItem: {
-    margin: "3%",
+    margin: "1%",
+    height: "30%",
+    // border: "1px solid red",
     // maxWidth: "40vw",
   },
 }));

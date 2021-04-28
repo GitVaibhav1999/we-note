@@ -4,13 +4,6 @@ import EditArea from "./EditArea/EditArea";
 import { ArrowLeft } from "@material-ui/icons";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
-import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
-import StarBorder from "@material-ui/icons/StarBorder";
-import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import blue_1 from "../assets/blue_1.png";
 import yellow_1 from "../assets/yellow_1.png";
 import yellow_2 from "../assets/yellow_2.png";
@@ -21,6 +14,7 @@ import { Link } from "react-router-dom";
 
 import Menu from "../assets/menu.png";
 import NoteHeading from "./NoteHeading";
+import { getNoteData } from "../DBCalls/firestoreDB";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,7 +61,15 @@ function EditorScreen(props) {
   const params = new URLSearchParams(search);
   const CID = params.get("CID");
 
-  console.log(CID);
+  // console.log(CID);
+
+  const [selectedNote, setSelectedNote] = React.useState();
+
+  React.useEffect(() => {
+    getNoteData(CID).then((response) => {
+      setSelectedNote(response);
+    });
+  }, []);
 
   const classes = useStyles();
 
@@ -81,6 +83,10 @@ function EditorScreen(props) {
 
   const [color, setColor] = React.useState(note_colors.yellow1);
 
+  if (selectedNote == undefined) {
+    return <div>Loading</div>;
+  }
+
   return (
     <>
       <div className={classes.root}>
@@ -92,7 +98,11 @@ function EditorScreen(props) {
           </Link>
         </div>
         <div className={classes.editArea}>
-          <EditArea CID={CID} noteColor={color} />
+          <EditArea
+            Text={selectedNote != undefined ? selectedNote.TEXT : ""}
+            CID={CID}
+            noteColor={color}
+          />
         </div>
         <div></div>
       </div>
@@ -100,7 +110,10 @@ function EditorScreen(props) {
         <IconButton style={{ padding: "1rem" }}>
           <img className={classes.menu} src={Menu} />
         </IconButton>
-        <NoteHeading CID={CID} />
+        <NoteHeading
+          CID={CID}
+          Heading={selectedNote != undefined ? selectedNote.Heading : ""}
+        />
         <IconButton onClick={() => setColor(note_colors.yellow1)}>
           <img className={classes.img} src={yellow_1} />
         </IconButton>

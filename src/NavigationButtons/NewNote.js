@@ -23,7 +23,7 @@ const useStyle = makeStyles((theme) => ({
     "&:hover": {
       boxShadow: "0px 0px 3px 1px #FF6B6B",
       backgroundColor: "#FF6B6B",
-      transform: "scale(1.1)",
+      transform: "scale(1.3)",
     },
     backgroundColor: "#FF6B6B",
     [theme.breakpoints.up("md")]: {

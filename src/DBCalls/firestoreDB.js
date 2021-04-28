@@ -32,10 +32,9 @@ export const setNewNote = async (note_data) => {
 };
 
 export const getNoteData = async (CID) => {
-  const queryRef = await noteRef.where("CreatedAt", "==", CID).get();
-  var note_data = {};
-  queryRef.forEach((data) => (note_data = data.data()));
-  return note_data;
+  const CID_string = CID;
+  const queryRef = await noteRef.doc(CID_string).get();
+  return queryRef.data();
 };
 
 export const updateNoteData = async (CID, key, value) => {

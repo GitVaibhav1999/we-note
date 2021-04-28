@@ -7,17 +7,26 @@ import PlayForWorkIcon from "@material-ui/icons/PlayForWork";
 
 import footerColors from "./footerColors";
 import StarBorder from "@material-ui/icons/StarBorder";
+import { getNoteData } from "../../../DBCalls/firestoreDB";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     display: "flex",
-    border: "2px solid grey",
+    border: "3px solid #8a795d",
     flexDirection: "column",
     justifyContent: "space-between",
     width: "90%",
     padding: "0",
     height: "200%",
     maxHeight: "20vh",
+    borderRadius: 50,
+    cursor: "pointer",
+    transition: "0.5s ease",
+    "&:hover": {
+      boxShadow: "0px 0px 15px 2px #8a795d",
+      transform: "scale(1.1)",
+    },
   },
   title: {
     fontSize: "2rem",
@@ -37,23 +46,38 @@ const useStyles = makeStyles((theme) => ({
   date: {
     color: "grey",
     paddingLeft: "1%",
+    fontSize: "1.3em",
   },
   toolButtons: {
     paddingRight: "1%",
     display: "flex",
   },
-  zoom: { "&:hover": { transform: "scale(1.3)" } },
+  zoom: {
+    // border: "1px solid grey",
+    width: "4rem",
+
+    "&:hover": {
+      transform: "scale(1.3)",
+      boxShadow: "0",
+      backgroundColor: "transparent",
+    },
+  },
 }));
 
 function NoteCard(props) {
   const classes = useStyles();
+  const history = useHistory();
 
   const Heading = props.Heading;
-  const CreatedAt = new Date(props.CreatedAt);
-  const formattedDate = `${CreatedAt.getDate()}-${CreatedAt.getMonth()}-${CreatedAt.getFullYear()}`;
+  const CID = new Date(props.CreatedAt);
+  const formattedDate = `${CID.getDate()}-${CID.getMonth()}-${CID.getFullYear()}`;
+
+  const handleClick = () => {
+    history.push(`/editor?CID=${props.CreatedAt}`);
+  };
 
   return (
-    <Paper className={classes.paper}>
+    <Paper onClick={handleClick} className={classes.paper}>
       <div className={classes.title}>{Heading}</div>
       <div className={classes.footer}>
         <div style={{ marginLeft: "3%" }} className={classes.date}>
@@ -61,13 +85,15 @@ function NoteCard(props) {
         </div>
         <div className={classes.toolButtons}>
           <IconButton className={classes.zoom}>
-            <StarBorder style={{ fill: "orange" }} />
+            <StarBorder style={{ fill: "orange", fontSize: "1.6em" }} />
           </IconButton>
           <IconButton className={classes.zoom}>
-            <PlayForWorkIcon style={{ fill: "#4BB543" }} />
+            <PlayForWorkIcon style={{ fill: "#4BB543", fontSize: "1.3em" }} />
           </IconButton>
           <IconButton className={classes.zoom}>
-            <DeleteOutlinedIcon style={{ fill: "#D11A2A" }} />
+            <DeleteOutlinedIcon
+              style={{ fill: "#D11A2A", fontSize: "1.3em" }}
+            />
           </IconButton>
         </div>
       </div>

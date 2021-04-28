@@ -14,9 +14,13 @@ const useStyles = makeStyles((theme) => ({
 
 function NoteHeading(props) {
   const classes = useStyles();
-  const [heading, setHeading] = React.useState();
 
   const CID = parseInt(props.CID);
+  const Heading = props.Heading;
+
+  React.useEffect(() => console.log(Heading), [Heading]);
+
+  const [heading, setHeading] = React.useState(Heading);
 
   const changeHeading = (event) => {
     const changed_heading = event.target.value;
