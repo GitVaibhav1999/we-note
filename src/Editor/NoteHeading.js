@@ -9,6 +9,8 @@ const useStyles = makeStyles((theme) => ({
     width: "auto",
     height: "70%",
     margin: ".02rem",
+    fontSize: "2rem",
+    color: "grey",
   },
 }));
 

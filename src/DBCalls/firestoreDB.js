@@ -31,6 +31,11 @@ export const setNewNote = async (note_data) => {
     .then((resp) => console.log(resp));
 };
 
+export const deleteSelectedNote = async (CID) => {
+  const CID_string = CID.toString();
+  const queryRef = await noteRef.doc(CID_string).delete();
+};
+
 export const getNoteData = async (CID) => {
   const CID_string = CID;
   const queryRef = await noteRef.doc(CID_string).get();

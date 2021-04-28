@@ -4,11 +4,19 @@ import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import PlayForWorkIcon from "@material-ui/icons/PlayForWork";
+import { useAuth } from "../../../Authentication/AuthContext";
+import { useData } from "../../../Context";
 
 import footerColors from "./footerColors";
 import StarBorder from "@material-ui/icons/StarBorder";
-import { getNoteData } from "../../../DBCalls/firestoreDB";
+import {
+  deleteNote,
+  deleteSelectedNote,
+  getNoteData,
+  getUserNotes,
+} from "../../../DBCalls/firestoreDB";
 import { useHistory } from "react-router-dom";
+import DeleteNote from "./DeleteNote";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -68,12 +76,33 @@ function NoteCard(props) {
   const classes = useStyles();
   const history = useHistory();
 
+  const { currentUser } = useAuth();
+  const { value_user_notes } = useData();
+
+  const [userNotes, setUserNotes] = value_user_notes;
+
   const Heading = props.Heading;
   const CID = new Date(props.CreatedAt);
   const formattedDate = `${CID.getDate()}-${CID.getMonth()}-${CID.getFullYear()}`;
 
-  const handleClick = () => {
+  const handleClick = (e) => {
     history.push(`/editor?CID=${props.CreatedAt}`);
+  };
+
+  // Delete note on click
+  const handleDelClick = (eve) => {
+    eve.stopPropagation();
+    deleteSelectedNote(props.CreatedAt).then(() => {
+      // after deletion, getting data and setting user state
+      getUserNotes(currentUser.uid).then((response) => {
+        var temp_notes = [];
+
+        response.forEach((each_data) => {
+          temp_notes.push(each_data.data());
+        });
+        setUserNotes(temp_notes);
+      });
+    });
   };
 
   return (
@@ -90,7 +119,7 @@ function NoteCard(props) {
           <IconButton className={classes.zoom}>
             <PlayForWorkIcon style={{ fill: "#4BB543", fontSize: "1.3em" }} />
           </IconButton>
-          <IconButton className={classes.zoom}>
+          <IconButton onClick={handleDelClick} className={classes.zoom}>
             <DeleteOutlinedIcon
               style={{ fill: "#D11A2A", fontSize: "1.3em" }}
             />
