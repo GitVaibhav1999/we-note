@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useAuth } from "./Authentication/AuthContext";
-import firebase from "firebase";
 import { auth } from "./firebase/firebase";
+import {
+  findUsersWithThisEmail,
+  setUserWithThisEmail,
+} from "./DBCalls/firestoreDB";
 
 const DataContext = React.createContext();
 
@@ -18,20 +21,19 @@ export function DataProvider({ children }) {
   React.useEffect(() => {
     const addUserDocument = async () => {
       if (currentUser != null) {
-        const db = firebase.firestore();
-        const userRef = db.collection("USER_COLLECTION");
-        const queryRef = await userRef
-          .where("user_email", "==", currentUser.email)
-          .get();
+        const queryResponse = await findUsersWithThisEmail(currentUser.email);
+        console.log(queryResponse.size);
 
         const user_object = {
           user_name: currentUser.email.split("@")[0],
           user_email: currentUser.email,
           no_of_notes: 0,
         };
-        console.log("set");
 
-        await db.collection("USER_COLLECTION").doc().set(user_object);
+        if (queryResponse.size == 0) {
+          console.log("set");
+          setUserWithThisEmail(user_object);
+        }
       }
     };
     addUserDocument();
