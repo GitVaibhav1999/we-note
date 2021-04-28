@@ -12,6 +12,7 @@ import { useState } from "react";
 import { InputBase } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import AddButton from "../../assets/add-button.png";
+import NewNote from "../../NavigationButtons/NewNote";
 
 const useStyle = makeStyles((theme) => ({
   appBar: {
@@ -49,32 +50,6 @@ const useStyle = makeStyles((theme) => ({
   grow: {
     flexGrow: 0,
   },
-
-  fabButton: {
-    backgroundColor: "#FF6B6B",
-    boxShadow: "0px 2px 0px 8px #F7FFF7",
-    width: "5em",
-    height: "5em",
-    position: "absolute",
-    zIndex: 1,
-    top: -40,
-    left: "0",
-    right: "0",
-    margin: "0 auto",
-    transition: "0.2s ease",
-    border: "1px solid white",
-    "&:hover": {
-      boxShadow: "0px 0px 3px 1px #FF6B6B",
-      backgroundColor: "#FF6B6B",
-      transform: "scale(1.1)",
-    },
-    backgroundColor: "#FF6B6B",
-    [theme.breakpoints.up("md")]: {
-      right: "-85%",
-      left: 0,
-      top: "-40",
-    },
-  },
 }));
 
 function BottomBar() {
@@ -89,11 +64,7 @@ function BottomBar() {
           <MenuIcon />
         </IconButton>
 
-        <Link to="/editor">
-          <Fab color="secondary" aria-label="add" className={classes.fabButton}>
-            <span style={{ fontSize: "60px" }}>+</span>
-          </Fab>
-        </Link>
+        <NewNote />
         {/* <TextField /> */}
         <div className={classes.grow} />
 

@@ -20,6 +20,7 @@ import pink_2 from "../assets/pink_2.png";
 import { Link } from "react-router-dom";
 
 import Menu from "../assets/menu.png";
+import NoteHeading from "./NoteHeading";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,11 +52,7 @@ const useStyles = makeStyles((theme) => ({
     height: "7vh",
     margin: "0.2rem",
   },
-  headingInput: {
-    width: "auto",
-    height: "70%",
-    margin: ".02rem",
-  },
+
   menu: {
     width: "1.3rem",
   },
@@ -96,14 +93,7 @@ function EditorScreen() {
         <IconButton style={{ padding: "1rem" }}>
           <img className={classes.menu} src={Menu} />
         </IconButton>
-        <OutlinedInput
-          className={classes.headingInput}
-          id="outlined-adornment-weight"
-          aria-describedby="outlined-weight-helper-text"
-          labelWidth={0}
-          placeholder="Heading"
-        />
-
+        <NoteHeading />
         <IconButton onClick={() => setColor(note_colors.yellow1)}>
           <img className={classes.img} src={yellow_1} />
         </IconButton>
