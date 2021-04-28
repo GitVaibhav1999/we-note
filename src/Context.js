@@ -44,6 +44,7 @@ export function DataProvider({ children }) {
 
   const value = {
     value_userInfo: [userInfo, setUserInfo],
+    value_user_notes: [userNotes, setUserNotes],
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

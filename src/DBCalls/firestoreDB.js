@@ -17,6 +17,12 @@ export const setUserWithThisEmail = async (user_object) => {
     .then((resp) => console.log(resp));
 };
 
+export const getUserNotes = async (user_id) => {
+  const user_id_string = user_id.toString();
+  const queryRef = await noteRef.where("user_id", "==", user_id_string).get();
+  return queryRef;
+};
+
 export const setNewNote = async (note_data) => {
   const ID = note_data.CreatedAt.toString();
   await noteRef

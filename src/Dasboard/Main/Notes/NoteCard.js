@@ -45,15 +45,20 @@ const useStyles = makeStyles((theme) => ({
   zoom: { "&:hover": { transform: "scale(1.3)" } },
 }));
 
-function NoteCard() {
+function NoteCard(props) {
   const classes = useStyles();
-  var random_color =
-    footerColors[Math.floor(Math.random() * footerColors.length)];
+
+  const Heading = props.Heading;
+  const CreatedAt = new Date(props.CreatedAt);
+  const formattedDate = `${CreatedAt.getDate()}-${CreatedAt.getMonth()}-${CreatedAt.getFullYear()}`;
+
   return (
     <Paper className={classes.paper}>
-      <div className={classes.title}>Note title temp</div>
+      <div className={classes.title}>{Heading}</div>
       <div className={classes.footer}>
-        <div className={classes.date}>12-05-2021</div>
+        <div style={{ marginLeft: "3%" }} className={classes.date}>
+          {formattedDate}
+        </div>
         <div className={classes.toolButtons}>
           <IconButton className={classes.zoom}>
             <StarBorder style={{ fill: "orange" }} />

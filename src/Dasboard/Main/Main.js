@@ -3,6 +3,9 @@ import { Grid } from "@material-ui/core";
 import NoteCard from "./Notes/NoteCard";
 import { makeStyles } from "@material-ui/core";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import { getUserNotes } from "../../DBCalls/firestoreDB";
+import { useAuth } from "../../Authentication/AuthContext";
+import { useData } from "../../Context";
 
 const useStyles = makeStyles((theme) => ({
   grid: {
@@ -20,6 +23,25 @@ const useStyles = makeStyles((theme) => ({
 function Main() {
   const classes = useStyles();
 
+  const { currentUser } = useAuth();
+  const { value_user_notes } = useData();
+
+  const [userNotes, setUserNotes] = value_user_notes;
+
+  React.useEffect(() => console.log(userNotes), [userNotes]);
+
+  // Get all user notes from DB
+  React.useEffect(() => {
+    getUserNotes(currentUser.uid).then((response) => {
+      var temp_notes = [];
+
+      response.forEach((each_data) => {
+        temp_notes.push(each_data.data());
+      });
+      setUserNotes(temp_notes);
+    });
+  }, []);
+
   return (
     <PerfectScrollbar>
       <Grid
@@ -29,10 +51,13 @@ function Main() {
         justify="center"
         spacing={2}
       >
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map(() => {
+        {userNotes.map((each_note) => {
           return (
             <Grid className={classes.gridItem} item sm={10} md={3}>
-              <NoteCard />
+              <NoteCard
+                Heading={each_note.Heading}
+                CreatedAt={each_note.CreatedAt}
+              />
             </Grid>
           );
         })}
