@@ -61,7 +61,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function EditorScreen() {
+function EditorScreen(props) {
+  // To get the param from route
+  const search = window.location.search;
+  const params = new URLSearchParams(search);
+  const CID = params.get("CID");
+
+  console.log(CID);
+
   const classes = useStyles();
 
   const note_colors = {
@@ -93,7 +100,7 @@ function EditorScreen() {
         <IconButton style={{ padding: "1rem" }}>
           <img className={classes.menu} src={Menu} />
         </IconButton>
-        <NoteHeading />
+        <NoteHeading CID={CID} />
         <IconButton onClick={() => setColor(note_colors.yellow1)}>
           <img className={classes.img} src={yellow_1} />
         </IconButton>

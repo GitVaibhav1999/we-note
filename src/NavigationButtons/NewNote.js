@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useAuth } from "../Authentication/AuthContext";
 import { setNewNote } from "../DBCalls/firestoreDB";
 import { useHistory } from "react-router-dom";
+import { PublishRounded } from "@material-ui/icons";
 
 const useStyle = makeStyles((theme) => ({
   fabButton: {
@@ -52,9 +53,10 @@ function NewNote() {
     console.log(note_data);
     setNewNote(note_data)
       .then(() => {
-        history.push(`/editor/${note_data.CreatedAt}`);
+        console.log("PublishRounded");
+        history.push(`/editor?CID=${note_data.CreatedAt}`);
       })
-      .catch((error) => console.log("error message"));
+      .catch((error) => console.log(error));
   };
 
   return (
