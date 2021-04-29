@@ -3,21 +3,14 @@ import clsx from "clsx";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
 import IconButton from "@material-ui/core/IconButton";
-
-import MenuIcn from "../assets/menu.png";
-import NoteCard from "./Main/Notes/NoteCard";
+import Loader from "react-loader-spinner";
 import SideBarCard from "./Main/Notes/SideBarCard";
 
+import { getCollaborateRequests, getNoteData } from "../DBCalls/firestoreDB";
+import { useAuth } from "../Authentication/AuthContext";
 const useStyles = makeStyles({
   list: {
     width: 400,
@@ -37,12 +30,15 @@ const useStyles = makeStyles({
 
 export default function SideBar() {
   const classes = useStyles();
+  const { currentUser } = useAuth();
   const [state, setState] = React.useState({
     top: false,
     left: false,
     bottom: false,
     right: false,
   });
+
+  const [reqNote, setReqNote] = React.useState(undefined);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -53,7 +49,24 @@ export default function SideBar() {
     }
 
     setState({ ...state, [anchor]: open });
+
+    getCollaborateRequests(currentUser.email).then((response) => {
+      console.log(response);
+      response.forEach((each_cid) => {
+        var temp_req_notes = [];
+        getNoteData(each_cid).then((note_response) => {
+          if (note_response != undefined)
+            setReqNote((curr) => [...curr, note_response]);
+        });
+        // console.log(temp_req_notes);
+        setReqNote(temp_req_notes);
+      });
+    });
   };
+
+  React.useEffect(() => {
+    console.log(reqNote);
+  }, [reqNote]);
 
   const list = (anchor) => (
     <div
@@ -68,7 +81,31 @@ export default function SideBar() {
         Collaborate Requests
       </Typography>
       <List>
-        <SideBarCard Heading="vaibhavsanjay@gmail.com" Sender="Heading" />
+        {reqNote == undefined ? (
+          <div
+            style={{
+              alignSelf: "center",
+              justifyContent: "center",
+              width: "100%",
+              display: "flex",
+            }}
+          >
+            <Loader
+              type="ThreeDots"
+              color="#FF6B6B"
+              height={900}
+              width={200}
+              // timeout={3000} //3 secs
+            />
+          </div>
+        ) : (
+          reqNote.map((each_note) => (
+            <SideBarCard
+              Heading={each_note.user_id}
+              Sender={each_note.Heading}
+            />
+          ))
+        )}
       </List>
     </div>
   );

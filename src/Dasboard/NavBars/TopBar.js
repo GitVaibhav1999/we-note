@@ -12,6 +12,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Link } from "react-router-dom";
 
+import { getCollaborateRequests } from "../../DBCalls/firestoreDB";
 import logo from "../../assets/sticky-notes.png";
 
 const useStyles = makeStyles((theme) => ({
@@ -77,7 +78,7 @@ export default function TopBar() {
               setAnchorEl(null);
             }}
           >
-            <a href="www.google.com">
+            <a href="https://github.com/GitVaibhav1999/we-note">
               <MenuItem>Source Code</MenuItem>
             </a>
             <MenuItem onClick={exit}>Logout</MenuItem>

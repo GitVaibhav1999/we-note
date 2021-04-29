@@ -64,10 +64,22 @@ export const sendCollaborateRequest = async (CID, email) => {
   var curr_req = [];
   queryRef.forEach((data) => {
     userID = data.id;
-    curr_req = data.data().collab_request;
+    curr_req = [...data.data().collab_request];
   });
   curr_req.push(CID_string);
   var queryRef = await userRef.doc(userID).update({
     collab_request: curr_req,
   });
+};
+
+export const getCollaborateRequests = async (email) => {
+  var queryRef = await userRef.where("user_email", "==", email).get();
+  var userID = "";
+
+  var curr_req = [];
+  queryRef.forEach((data) => {
+    userID = data.id;
+    curr_req = [...data.data().collab_request];
+  });
+  return curr_req;
 };
