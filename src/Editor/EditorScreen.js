@@ -11,11 +11,12 @@ import pink_1 from "../assets/pink_1.png";
 import pink_2 from "../assets/pink_2.png";
 import Loader from "react-loader-spinner";
 
-import { Link } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 
 import Menu from "../assets/menu.png";
 import NoteHeading from "./NoteHeading";
 import { getNoteData } from "../DBCalls/firestoreDB";
+import { useAuth } from "../Authentication/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,8 +62,9 @@ function EditorScreen(props) {
   const search = window.location.search;
   const params = new URLSearchParams(search);
   const CID = params.get("CID");
+  const history = useHistory();
 
-  // console.log(CID);
+  const { currentUser } = useAuth();
 
   const [selectedNote, setSelectedNote] = React.useState();
 
@@ -84,6 +86,12 @@ function EditorScreen(props) {
 
   const [color, setColor] = React.useState(note_colors.yellow1);
 
+  // if user not logged in
+  if (currentUser === null) {
+    return <Redirect to="/signUp" />;
+  }
+
+  // until state of selectedNote is updated
   if (selectedNote == undefined) {
     return (
       <div
