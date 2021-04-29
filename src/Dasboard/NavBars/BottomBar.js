@@ -2,17 +2,13 @@ import React from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Fab from "@material-ui/core/Fab";
-import MenuIcon from "@material-ui/icons/Menu";
-import AddIcon from "@material-ui/icons/Add";
-import SearchIcon from "@material-ui/icons/Search";
-import MoreIcon from "@material-ui/icons/MoreVert";
+
 import { useState } from "react";
 import { InputBase } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import AddButton from "../../assets/add-button.png";
 import NewNote from "../../NavigationButtons/NewNote";
+import SideBar from "../Sidebar";
 
 const useStyle = makeStyles((theme) => ({
   appBar: {
@@ -60,9 +56,7 @@ function BottomBar() {
   return (
     <AppBar position="fixed" color="primary" className={classes.appBar}>
       <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="open drawer">
-          <MenuIcon />
-        </IconButton>
+        <SideBar />
 
         <NewNote />
         {/* <TextField /> */}
