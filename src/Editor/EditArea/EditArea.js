@@ -9,7 +9,7 @@ const useStyles = makeStyles(() => ({
     border: "1px solid black",
   },
   paper: {
-    fontSize: "1rem",
+    fontSize: "1.4rem",
     // backgroundColor: "#feff9c",
     border: "1px solid grey",
     padding: "2%",

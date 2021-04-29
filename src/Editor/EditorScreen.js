@@ -17,6 +17,7 @@ import Menu from "../assets/menu.png";
 import NoteHeading from "./NoteHeading";
 import { getNoteData } from "../DBCalls/firestoreDB";
 import { useAuth } from "../Authentication/AuthContext";
+import Collaborate from "./collaborate/Collaborate";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,17 +44,26 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
   },
   heading: {
-    display: "inline-block",
+    display: "flex",
     width: "100vw",
     height: "7vh",
     margin: "0.2rem",
+    marginLeft: "1rem",
+  },
+  colors: {
+    marginLeft: "1rem",
   },
 
   menu: {
-    width: "1.3rem",
+    width: "3rem",
   },
   img: {
-    width: "2rem",
+    width: "2.5rem",
+    transition: "0.2s ease",
+
+    "&:hover": {
+      transform: "scale(1.3)",
+    },
   },
 }));
 
@@ -130,31 +140,34 @@ function EditorScreen(props) {
             noteColor={color}
           />
         </div>
-        <div></div>
+
+        <Collaborate CID={CID} />
       </div>
       <div className={classes.heading}>
-        <IconButton style={{ padding: "1rem" }}>
+        {/* <IconButton style={{ padding: "1rem" }}>
           <img className={classes.menu} src={Menu} />
-        </IconButton>
+        </IconButton> */}
         <NoteHeading
           CID={CID}
           Heading={selectedNote != undefined ? selectedNote.Heading : ""}
         />
-        <IconButton onClick={() => setColor(note_colors.yellow1)}>
-          <img className={classes.img} src={yellow_1} />
-        </IconButton>
-        <IconButton onClick={() => setColor(note_colors.yellow2)}>
-          <img className={classes.img} src={yellow_2} />
-        </IconButton>
-        <IconButton onClick={() => setColor(note_colors.pink1)}>
-          <img className={classes.img} src={pink_1} />
-        </IconButton>
-        <IconButton onClick={() => setColor(note_colors.pink2)}>
-          <img className={classes.img} src={pink_2} />
-        </IconButton>
-        <IconButton onClick={() => setColor(note_colors.blue1)}>
-          <img className={classes.img} src={blue_1} />
-        </IconButton>
+        <div className={classes.colors}>
+          <IconButton onClick={() => setColor(note_colors.yellow1)}>
+            <img className={classes.img} src={yellow_1} />
+          </IconButton>
+          <IconButton onClick={() => setColor(note_colors.yellow2)}>
+            <img className={classes.img} src={yellow_2} />
+          </IconButton>
+          <IconButton onClick={() => setColor(note_colors.pink1)}>
+            <img className={classes.img} src={pink_1} />
+          </IconButton>
+          <IconButton onClick={() => setColor(note_colors.pink2)}>
+            <img className={classes.img} src={pink_2} />
+          </IconButton>
+          <IconButton onClick={() => setColor(note_colors.blue1)}>
+            <img className={classes.img} src={blue_1} />
+          </IconButton>
+        </div>
       </div>
     </>
   );

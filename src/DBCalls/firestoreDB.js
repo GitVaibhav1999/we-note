@@ -49,3 +49,25 @@ export const updateNoteData = async (CID, key, value) => {
   const queryRef = await noteRef.doc(CID.toString());
   const ref = await queryRef.update(update_object);
 };
+
+export const checkValidRequest = async (email) => {
+  var queryRef = await userRef.where("user_email", "==", email).get();
+  return queryRef.size == 1 ? true : false;
+};
+
+export const sendCollaborateRequest = async (CID, email) => {
+  const CID_string = CID.toString();
+
+  var queryRef = await userRef.where("user_email", "==", email).get();
+  var userID = "";
+
+  var curr_req = [];
+  queryRef.forEach((data) => {
+    userID = data.id;
+    curr_req = data.data().collab_request;
+  });
+  curr_req.push(CID_string);
+  var queryRef = await userRef.doc(userID).update({
+    collab_request: curr_req,
+  });
+};

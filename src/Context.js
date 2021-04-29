@@ -28,6 +28,7 @@ export function DataProvider({ children }) {
           user_name: currentUser.email.split("@")[0],
           user_email: currentUser.email,
           no_of_notes: 0,
+          collab_requests: [], // CID of requests of all collab  requests
         };
 
         if (queryResponse.size == 0) {
