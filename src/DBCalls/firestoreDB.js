@@ -103,6 +103,7 @@ export const rejectCollab = async (CID, email) => {
 
   if (filtered_curr_req == undefined) return [];
 
+  console.log(filtered_curr_req);
   var queryRef = await userRef
     .doc(userDocID)
     .update({
@@ -112,4 +113,35 @@ export const rejectCollab = async (CID, email) => {
       return filtered_curr_req;
     })
     .catch((err) => console.log(err));
+};
+
+export const acceptCollabReq = async (CID, email) => {
+  const CID_string = CID.toString();
+
+  var queryRef = await userRef.where("user_email", "==", email).get();
+  var userDocID = "";
+
+  var curr_accepts = [];
+  var curr_req = [];
+  queryRef.forEach((data) => {
+    userDocID = data.id;
+    curr_accepts = [...data.data().collab_accepts];
+    curr_req = [...data.data().collab_requests];
+  });
+
+  var filtered_curr_req = [];
+  filtered_curr_req = curr_req.filter((each_CID) => each_CID != CID_string);
+
+  curr_accepts.push(CID_string);
+  var queryRef = await userRef
+    .doc(userDocID)
+    .update({
+      collab_accepts: curr_accepts,
+      collab_requests: filtered_curr_req,
+    })
+    .then(() => {
+      console.log(filtered_curr_req);
+      return filtered_curr_req;
+    })
+    .catch((error) => console.log(error));
 };

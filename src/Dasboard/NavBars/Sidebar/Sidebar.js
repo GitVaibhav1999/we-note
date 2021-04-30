@@ -61,7 +61,6 @@ export default function SideBar() {
       }
       response.forEach((each_cid, index) => {
         getNoteData(each_cid).then((note_response) => {
-          console.log(note_response);
           if (note_response != undefined) temp_req_notes.push(note_response);
           if (index == response.length - 1) setReqNote(temp_req_notes);
         });
@@ -102,8 +101,8 @@ export default function SideBar() {
         ) : (
           reqNote.map((each_note) => (
             <SideBarCard
-              Heading={each_note.user_id}
-              Sender={each_note.Heading}
+              Heading={each_note.Heading}
+              Sender={each_note.user_email}
               NoteDetail={each_note}
               setReqNote={setReqNote}
             />

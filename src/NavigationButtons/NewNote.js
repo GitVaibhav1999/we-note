@@ -45,6 +45,8 @@ function NewNote() {
   const addNote = () => {
     const note_data = {
       user_id: currentUser.uid,
+      user_email: currentUser.email,
+      Collaborator: [],
       Heading: "",
       CreatedAt: Date.parse(currentDateTime),
       Text: "",
