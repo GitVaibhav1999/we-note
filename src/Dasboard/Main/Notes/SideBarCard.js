@@ -1,6 +1,5 @@
 import React from "react";
 import { IconButton, makeStyles, Paper } from "@material-ui/core";
-import CheckIcon from "@material-ui/icons/Check";
 import { useAuth } from "../../../Authentication/AuthContext";
 import { useData } from "../../../Context";
 import CloseIcon from "@material-ui/icons/Close";
@@ -15,6 +14,8 @@ import {
 } from "../../../DBCalls/firestoreDB";
 import { useHistory } from "react-router-dom";
 import DeleteNote from "./DeleteNote";
+import Reject from "../../NavBars/Sidebar/Reject";
+import Accept from "../../NavBars/Sidebar/Accept";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -71,14 +72,14 @@ function SideBarCard(props) {
   const classes = useStyles();
   const history = useHistory();
 
-  const { currentUser } = useAuth();
   const { value_user_notes } = useData();
 
   const [userNotes, setUserNotes] = value_user_notes;
 
   const Heading = props.Heading;
   const Sender = props.Sender;
-  console.log(Sender);
+  const NoteDetail = props.NoteDetail;
+
   return (
     <Paper className={classes.paper}>
       <div className={classes.title}>{Heading}</div>
@@ -87,12 +88,8 @@ function SideBarCard(props) {
           {Sender}
         </div>
         <div className={classes.toolButtons}>
-          <IconButton>
-            <CheckIcon style={{ color: "green" }} />
-          </IconButton>
-          <IconButton>
-            <CloseIcon style={{ color: "red" }} />
-          </IconButton>
+          <Accept setReqNote={props.setReqNote} CID={NoteDetail.CreatedAt} />
+          <Reject setReqNote={props.setReqNote} CID={NoteDetail.CreatedAt} />
         </div>
       </div>
     </Paper>

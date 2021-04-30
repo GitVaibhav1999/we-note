@@ -8,7 +8,7 @@ import { InputBase } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import AddButton from "../../assets/add-button.png";
 import NewNote from "../../NavigationButtons/NewNote";
-import SideBar from "../Sidebar";
+import SideBar from "./Sidebar/Sidebar";
 
 const useStyle = makeStyles((theme) => ({
   appBar: {

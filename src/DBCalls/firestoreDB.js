@@ -86,3 +86,30 @@ export const getCollaborateRequests = async (email) => {
   });
   return curr_req;
 };
+
+export const rejectCollab = async (CID, email) => {
+  const CID_string = CID.toString();
+
+  var queryRef = await userRef.where("user_email", "==", email).get();
+  var userDocID = "";
+
+  var curr_req = [];
+  queryRef.forEach((data) => {
+    userDocID = data.id;
+    curr_req = [...data.data().collab_requests];
+  });
+
+  var filtered_curr_req = curr_req.filter((each_CID) => each_CID != CID_string);
+
+  if (filtered_curr_req == undefined) return [];
+
+  var queryRef = await userRef
+    .doc(userDocID)
+    .update({
+      collab_requests: filtered_curr_req,
+    })
+    .then(() => {
+      return filtered_curr_req;
+    })
+    .catch((err) => console.log(err));
+};

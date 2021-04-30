@@ -7,10 +7,13 @@ import List from "@material-ui/core/List";
 import MenuIcon from "@material-ui/icons/Menu";
 import IconButton from "@material-ui/core/IconButton";
 import Loader from "react-loader-spinner";
-import SideBarCard from "./Main/Notes/SideBarCard";
+import SideBarCard from "../../Main/Notes/SideBarCard";
 
-import { getCollaborateRequests, getNoteData } from "../DBCalls/firestoreDB";
-import { useAuth } from "../Authentication/AuthContext";
+import {
+  getCollaborateRequests,
+  getNoteData,
+} from "../../../DBCalls/firestoreDB";
+import { useAuth } from "../../../Authentication/AuthContext";
 const useStyles = makeStyles({
   list: {
     width: 400,
@@ -38,7 +41,7 @@ export default function SideBar() {
     right: false,
   });
 
-  const [reqNote, setReqNote] = React.useState(undefined);
+  const [reqNote, setReqNote] = React.useState([]);
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -49,24 +52,22 @@ export default function SideBar() {
     }
 
     setState({ ...state, [anchor]: open });
-
     getCollaborateRequests(currentUser.email).then((response) => {
-      console.log(response);
-      response.forEach((each_cid) => {
-        var temp_req_notes = [];
+      var temp_req_notes = [];
+      if (response.length == 0) {
+        var emp = [];
+        setReqNote(emp);
+        return;
+      }
+      response.forEach((each_cid, index) => {
         getNoteData(each_cid).then((note_response) => {
-          if (note_response != undefined)
-            setReqNote((curr) => [...curr, note_response]);
+          console.log(note_response);
+          if (note_response != undefined) temp_req_notes.push(note_response);
+          if (index == response.length - 1) setReqNote(temp_req_notes);
         });
-        // console.log(temp_req_notes);
-        setReqNote(temp_req_notes);
       });
     });
   };
-
-  React.useEffect(() => {
-    console.log(reqNote);
-  }, [reqNote]);
 
   const list = (anchor) => (
     <div
@@ -103,6 +104,8 @@ export default function SideBar() {
             <SideBarCard
               Heading={each_note.user_id}
               Sender={each_note.Heading}
+              NoteDetail={each_note}
+              setReqNote={setReqNote}
             />
           ))
         )}
