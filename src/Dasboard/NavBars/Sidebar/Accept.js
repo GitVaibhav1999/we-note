@@ -3,14 +3,15 @@ import { IconButton, makeStyles, Paper } from "@material-ui/core";
 import CheckIcon from "@material-ui/icons/Check";
 
 import { useAuth } from "../../../Authentication/AuthContext";
+import { useData } from "../../../Context";
 import { acceptCollabReq } from "../../../DBCalls/firestoreDB";
 
-//  step 3 => get all notes from collab_accepted of USER_COLLECTION
 //  step 1 => on accept, add accepter to note's collaborator list
-//  step 2 => create a toggle on main, which toggles collaborated notes (cannot be deleted)
+//  step 2 => Add accepted Note on dashBoard
 
 function Accept(props) {
   const { currentUser } = useAuth();
+  const [userNotes, setUserNotes] = useData();
   const setReqNote = props.setReqNote;
 
   const acceptCollab = () => {

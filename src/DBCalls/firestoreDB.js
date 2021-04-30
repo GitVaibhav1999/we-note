@@ -145,3 +145,17 @@ export const acceptCollabReq = async (CID, email) => {
     })
     .catch((error) => console.log(error));
 };
+
+export const getCollabNotes = async (email) => {
+  var queryRef = await userRef.where("user_email", "==", email).get();
+  var userDocID = "";
+
+  var curr_accepts = [];
+  var curr_req = [];
+  queryRef.forEach((data) => {
+    userDocID = data.id;
+  });
+
+  var collabNotesRef = await userRef.doc(userDocID).get();
+  return collabNotesRef.data().collab_accepts;
+};

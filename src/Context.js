@@ -42,11 +42,13 @@ export function DataProvider({ children }) {
   }, [currentUser]);
 
   const [userNotes, setUserNotes] = useState();
+  const [userCollabNotes, setUserCollabNotes] = useState();
   const [currentNote, setCurrentNote] = useState({});
 
   const value = {
     value_userInfo: [userInfo, setUserInfo],
     value_user_notes: [userNotes, setUserNotes],
+    value_collab_notes: [userCollabNotes, setUserCollabNotes],
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

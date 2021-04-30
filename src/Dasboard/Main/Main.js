@@ -3,7 +3,11 @@ import { Grid } from "@material-ui/core";
 import NoteCard from "./Notes/NoteCard";
 import { makeStyles } from "@material-ui/core";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import { getUserNotes } from "../../DBCalls/firestoreDB";
+import {
+  getCollabNotes,
+  getNoteData,
+  getUserNotes,
+} from "../../DBCalls/firestoreDB";
 import Loader from "react-loader-spinner";
 
 import { useAuth } from "../../Authentication/AuthContext";
@@ -45,6 +49,10 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+  },
+  toggle: {
+    display: "flex",
+    alignContent: "right",
   },
 }));
 
@@ -105,6 +113,7 @@ function Main() {
   }
   return (
     <PerfectScrollbar>
+      <div className={classes.toggle}></div>
       <Grid
         id="grid"
         className={classes.grid}
