@@ -4,10 +4,52 @@ import { getCollabNotes, getNoteData } from "../../DBCalls/firestoreDB";
 import { useAuth } from "../../Authentication/AuthContext";
 import { Grid, makeStyles } from "@material-ui/core";
 import Loader from "react-loader-spinner";
+import emptyIcon from "../../assets/search.png";
+import MenuIcon from "@material-ui/icons/Menu";
 
 import NoteCard from "./Notes/NoteCard";
 
-const useStyles = makeStyles(() => ({}));
+const useStyles = makeStyles(() => ({
+  grid: {
+    overflow: "auto",
+    width: "100%",
+    marginTop: "1rem",
+    height: "80vh",
+    transition: "2s ease-out",
+  },
+  gridItem: {
+    margin: "1%",
+    height: "30%",
+    transition: "2s ease",
+
+    // border: "1px solid red",
+    // maxWidth: "40vw",
+  },
+  loader: {
+    alignSelf: "center",
+    justifyContent: "center",
+    width: "100vw",
+    display: "flex",
+  },
+  empty: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100vw",
+    height: "60vh",
+    display: "flex",
+    fontSize: "3rem",
+    flexDirection: "column",
+  },
+  imgDiv: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  toggle: {
+    display: "flex",
+    alignContent: "right",
+  },
+}));
 
 function MainCollab() {
   const classes = useStyles();
@@ -17,21 +59,13 @@ function MainCollab() {
   const [userCollabNotes, setUserCollabNotes] = value_collab_notes;
 
   React.useEffect(() => {
-    setUserCollabNotes([]);
-    var temp_collab = [];
     getCollabNotes(currentUser.email).then((response) => {
-      var temp_collab = [];
+      setUserCollabNotes([]);
       response.forEach((each_CID) => {
         getNoteData(each_CID).then((res) => {
-          temp_collab.push(res);
-          if (userCollabNotes == undefined) {
-            setUserCollabNotes([res]);
-          }
-          setUserCollabNotes((curr) => [...curr, res]);
+          if (res != undefined) setUserCollabNotes((curr) => [...curr, res]);
         });
       });
-      console.log(temp_collab);
-      // setUserCollabNotes(temp_collab);
     });
   }, []);
 
@@ -47,6 +81,37 @@ function MainCollab() {
           width={200}
           // timeout={3000} //3 secs
         />
+      </div>
+    );
+  }
+
+  if (userCollabNotes.length == 0) {
+    return (
+      <div className={classes.empty}>
+        <div>
+          <div className={classes.imgDiv}>
+            <img
+              style={{
+                width: "30%",
+              }}
+              src={emptyIcon}
+            />
+          </div>
+        </div>
+        <div>No Collaborations for Now !! </div>
+        <div style={{ color: "#FF6B6B" }}>
+          {" "}
+          Click{" "}
+          <MenuIcon
+            style={{
+              height: "2rem",
+              width: "3rem",
+              border: "1px solid black",
+              borderRadius: "10%",
+            }}
+          />{" "}
+        </div>
+        <div> to add Collaborations</div>
       </div>
     );
   }

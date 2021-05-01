@@ -79,6 +79,7 @@ function SideBarCard(props) {
   const Heading = props.Heading;
   const Sender = props.Sender;
   const NoteDetail = props.NoteDetail;
+  console.log(props);
 
   return (
     <Paper className={classes.paper}>

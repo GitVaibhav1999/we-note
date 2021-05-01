@@ -11,7 +11,6 @@ import { acceptCollabReq } from "../../../DBCalls/firestoreDB";
 
 function Accept(props) {
   const { currentUser } = useAuth();
-  const [userNotes, setUserNotes] = useData();
   const setReqNote = props.setReqNote;
 
   const acceptCollab = () => {

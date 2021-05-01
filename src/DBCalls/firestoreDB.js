@@ -155,7 +155,7 @@ export const getCollabNotes = async (email) => {
   queryRef.forEach((data) => {
     userDocID = data.id;
   });
-
+  console.log(userDocID);
   var collabNotesRef = await userRef.doc(userDocID).get();
   return collabNotesRef.data().collab_accepts;
 };

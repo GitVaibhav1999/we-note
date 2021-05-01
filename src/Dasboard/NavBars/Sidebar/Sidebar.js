@@ -29,6 +29,17 @@ const useStyles = makeStyles({
     backgroundColor: "#FF6B6B",
     borderBottom: "1px solid grey",
   },
+  empty: {
+    display: "flex",
+    border: "1px solid grey",
+    // height:'50vh',
+    justifyContent: "center",
+    alignItem: "center",
+    fontSize: "1.3rem",
+    alignContent: "center",
+    padding: "1rem",
+    margin: "1rem",
+  },
 });
 
 export default function SideBar() {
@@ -41,7 +52,7 @@ export default function SideBar() {
     right: false,
   });
 
-  const [reqNote, setReqNote] = React.useState([]);
+  const [reqNote, setReqNote] = React.useState();
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -53,20 +64,22 @@ export default function SideBar() {
 
     setState({ ...state, [anchor]: open });
     getCollaborateRequests(currentUser.email).then((response) => {
+      setReqNote([]);
+      console.log(response);
       var temp_req_notes = [];
       if (response.length == 0) {
-        var emp = [];
-        setReqNote(emp);
         return;
       }
       response.forEach((each_cid, index) => {
         getNoteData(each_cid).then((note_response) => {
-          if (note_response != undefined) temp_req_notes.push(note_response);
-          if (index == response.length - 1) setReqNote(temp_req_notes);
+          setReqNote((curr) => [...curr, each_cid]);
+          console.log(note_response);
         });
       });
     });
   };
+
+  React.useEffect(() => console.log(reqNote), [reqNote]);
 
   const list = (anchor) => (
     <div
@@ -98,7 +111,10 @@ export default function SideBar() {
               // timeout={3000} //3 secs
             />
           </div>
+        ) : reqNote.length == 0 ? (
+          <div className={classes.empty}>Not Collaboration Request</div>
         ) : (
+          // reqNote.map((each_note)=>(<div>{each_note}</div>))
           reqNote.map((each_note) => (
             <SideBarCard
               Heading={each_note.Heading}

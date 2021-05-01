@@ -13,7 +13,7 @@ import MainCollab from "./Main/MainCollab";
 function Dashboard() {
   const { currentUser, isNewUser } = useAuth();
   const { addUserDocument } = useData();
-  const [stateChecked, setCheckedState] = React.useState(true);
+  const [stateChecked, setCheckedState] = React.useState(false);
 
   // if user is not logged in, redirect to signup page
   if (currentUser === null) {
