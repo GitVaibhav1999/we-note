@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import { AccountCircle } from "@material-ui/icons";
 import { useAuth } from "../../Authentication/AuthContext";
+import {useData} from '../../Context'
 import { Redirect } from "react-router-dom";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -42,6 +43,10 @@ const useStyles = makeStyles((theme) => ({
 export default function TopBar() {
   const classes = useStyles();
   const { logOut } = useAuth();
+  const {value_user_info} = useData();
+
+  const [userInfo, setUserInfo] = value_user_info;
+  React.useEffect(()=>console.log(userInfo),[userInfo])
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -55,7 +60,7 @@ export default function TopBar() {
         <Toolbar>
           <img className={classes.logo} src={logo} />
           <Typography variant="h6" className={classes.title}>
-            Vaibhav Kumar
+            {userInfo.user_name}
           </Typography>
           <IconButton
             onClick={(event) => {

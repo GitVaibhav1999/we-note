@@ -31,6 +31,7 @@ export function DataProvider({ children }) {
           collab_requests: [], // CID of requests of all collab  requests
           collab_accepts: [], // CID of accepted collab notes
         };
+        setUserInfo(user_object)
 
         if (queryResponse.size == 0) {
           console.log("set");
@@ -46,7 +47,7 @@ export function DataProvider({ children }) {
   const [currentNote, setCurrentNote] = useState({});
 
   const value = {
-    value_userInfo: [userInfo, setUserInfo],
+    value_user_info: [userInfo, setUserInfo],
     value_user_notes: [userNotes, setUserNotes],
     value_collab_notes: [userCollabNotes, setUserCollabNotes],
   };
