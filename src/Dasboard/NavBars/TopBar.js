@@ -55,7 +55,7 @@ export default function TopBar() {
         <Toolbar>
           <img className={classes.logo} src={logo} />
           <Typography variant="h6" className={classes.title}>
-            Vaibhav Kumar Gautam
+            Vaibhav Kumar
           </Typography>
           <IconButton
             onClick={(event) => {

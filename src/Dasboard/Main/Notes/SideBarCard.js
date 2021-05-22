@@ -83,10 +83,10 @@ function SideBarCard(props) {
 
   return (
     <Paper className={classes.paper}>
-      <div className={classes.title}>{Sender}</div>
+      <div className={classes.title}>{Heading}</div>
       <div className={classes.footer}>
         <div style={{ marginLeft: "3%" }} className={classes.sender}>
-          {Heading}
+          {Sender}
         </div>
         <div className={classes.toolButtons}>
           <Accept setReqNote={props.setReqNote} CID={NoteDetail.CreatedAt} />

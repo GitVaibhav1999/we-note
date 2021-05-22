@@ -72,7 +72,7 @@ export default function SideBar() {
       }
       response.forEach((each_cid, index) => {
         getNoteData(each_cid).then((note_response) => {
-          setReqNote((curr) => [...curr, each_cid]);
+          setReqNote((curr) => [...curr, note_response]);
           console.log(note_response);
         });
       });
